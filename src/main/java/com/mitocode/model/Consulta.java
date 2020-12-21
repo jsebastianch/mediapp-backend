@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.ISBN;
-
 @Entity
 @Table(name = "consulta") // , schema = "m01")
 public class Consulta {
