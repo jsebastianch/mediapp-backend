@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mitocode.exception.ModeloNotFoundException;
+import com.mitocode.model.Consulta;
 import com.mitocode.model.Signos;
 import com.mitocode.service.ISignosService;
 
@@ -30,12 +33,19 @@ public class SignosController {
 	@Autowired
 	private ISignosService signosService;
 	
+	@GetMapping("/pageable")
+	public ResponseEntity<Page<Signos>> listarPageable(Pageable pageable) throws Exception{
+		Page<Signos> pacientes = this.signosService.listarPageable(pageable);
+		return new ResponseEntity<Page<Signos>>(pacientes, HttpStatus.OK);
+	}
 	
-	@GetMapping
-	@PreAuthorize("@authServiceImpl.tieneAcceso('listar')")
-	public ResponseEntity<List<Signos>> listar() throws Exception {
-		List<Signos> lista = this.signosService.listar();
-		return new ResponseEntity<List<Signos>>(lista, HttpStatus.OK);
+	@GetMapping("/{id}")
+	public ResponseEntity<Signos> listarPorId(@PathVariable("id") Integer id) throws Exception {
+		Signos obj = this.signosService.listarPorId(id);
+		if (obj == null) {
+			throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
+		}
+		return new ResponseEntity<Signos>(obj, HttpStatus.OK);
 	}
 	
 	@PostMapping

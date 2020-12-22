@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +17,7 @@ import javax.persistence.Table;
 public class Signos {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer signosId;
 
 	@ManyToOne
@@ -25,20 +28,20 @@ public class Signos {
 	private LocalDateTime fecha;
 	
 	@Column(name = "temperatura", nullable = false)
-	private Double temperatura;
+	private String temperatura;
 	
 	@Column(name = "pulso", nullable = false)
-	private Double pulso;
+	private String pulso;
 	
 	@Column(name = "ritmo_respiratorio", nullable = false)
-	private Double ritmoRespiratorio;
+	private String ritmoRespiratorio;
 	
 	public Signos() {
 		super();
 	}
 
-	public Signos(Integer signosId, Paciente paciente, LocalDateTime fecha, Double temperatura, Double pulso,
-			Double ritmoRespiratorio) {
+	public Signos(Integer signosId, Paciente paciente, LocalDateTime fecha, String temperatura, String pulso,
+			String ritmoRespiratorio) {
 		this();
 		this.signosId = signosId;
 		this.paciente = paciente;
@@ -72,27 +75,27 @@ public class Signos {
 		this.fecha = fecha;
 	}
 
-	public Double getTemperatura() {
+	public String getTemperatura() {
 		return temperatura;
 	}
 
-	public void setTemperatura(Double temperatura) {
+	public void setTemperatura(String temperatura) {
 		this.temperatura = temperatura;
 	}
 
-	public Double getPulso() {
+	public String getPulso() {
 		return pulso;
 	}
 
-	public void setPulso(Double pulso) {
+	public void setPulso(String pulso) {
 		this.pulso = pulso;
 	}
 
-	public Double getRitmoRespiratorio() {
+	public String getRitmoRespiratorio() {
 		return ritmoRespiratorio;
 	}
 
-	public void setRitmoRespiratorio(Double ritmoRespiratorio) {
+	public void setRitmoRespiratorio(String ritmoRespiratorio) {
 		this.ritmoRespiratorio = ritmoRespiratorio;
 	}
 
